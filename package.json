@@ -12,10 +12,13 @@
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
-    "morgan": "~1.9.0"
+    "morgan": "~1.9.0",
+    "mongodb": "^3.1.1",
+    "connect-mongo": "^2.0.1",
+    "mongolass": "^4.3.4"
   },
   "apidoc": {
     "title": "接口文档",
-    "url": "http://localhost:18080"
+    "url": "https://localhost:18081"
   }
 }

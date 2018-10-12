@@ -5,7 +5,7 @@ var dbURL = 'mongodb://localhost:27017'
 
 /**
  * @api {get} /bookscatalogue 古书类别列表
- * @apiSampleRequest http://localhost:18080/bookscatalogue
+ * @apiSampleRequest https://localhost:18081/bookscatalogue
  * @apiDescription 古书类别列表
  * @apiName 古书类别列表
  * @apiGroup Books

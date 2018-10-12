@@ -19,7 +19,7 @@ function responseAction(collectionName,query,project,req, res, skipnum,limitnum)
 
 /**
  * @api {get} /books/page/:page/limit/:limit 分页古书籍列表
- * @apiSampleRequest http://localhost:18080/books/page/:page/limit/:limit
+ * @apiSampleRequest https://localhost:18081/books/page/:page/limit/:limit
  * @apiDescription 分页古书籍列表
  * @apiName 分页古书籍列表
  * @apiGroup Books
@@ -67,7 +67,7 @@ router.get('/page/:page/limit/:limit',function (req,res) {
 
 /**
  * @api {get} /books/id/:book_id 根据book_id查询古书
- * @apiSampleRequest http://localhost:18080/books/id/:book_id
+ * @apiSampleRequest https://localhost:18081/books/id/:book_id
  * @apiDescription 根据book_id查询古书
  * @apiName 根据book_id查询古书
  * @apiGroup Books
@@ -97,7 +97,7 @@ router.get('/id/:book_id',function(req, res){
 
 /**
  * @api {get} /books/name/:book_name 根据book_name查询古书
- * @apiSampleRequest http://localhost:18080/books/name/:book_name
+ * @apiSampleRequest https://localhost:18081/books/name/:book_name
  * @apiDescription 根据book_name查询古书
  * @apiName 根据book_name查询古书
  * @apiGroup Books
