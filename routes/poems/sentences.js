@@ -19,7 +19,7 @@ function responseAction(collectionName,query,req, res, pagenum,limitnum) {
 
 /**
  * @api {get} /sentences/page/:page/limit/:limit 名句列表
- * @apiSampleRequest https://localhost:18081/sentences/page/:page/limit/:limit
+ * @apiSampleRequest https://180.76.181.15:18081/sentences/page/:page/limit/:limit
  * @apiDescription 名句列表
  * @apiName 名句列表
  * @apiGroup Sentences
@@ -78,7 +78,7 @@ router.get('/page/:page/limit/:limit',function(req, res){
 
 /**
  * @api {get} /sentences/id/:sentence_id 以id查询名句
- * @apiSampleRequest https://localhost:18081/sentences/id/:sentence_id
+ * @apiSampleRequest https://180.76.181.15:18081/sentences/id/:sentence_id
  * @apiDescription 以id查询名句
  * @apiName 以id查询名句
  * @apiGroup Sentences
@@ -126,7 +126,7 @@ router.get('/id/:sentence_id',function(req, res){
 
 /**
  * @api {get} /sentences/theme/:sentence_theme/category/:sentence_category/page/:page/limit/:limit 以类型查询名句
- * @apiSampleRequest https://localhost:18081/sentences/theme/:sentence_theme/category/:sentence_category/page/:page/limit/:limit
+ * @apiSampleRequest https://180.76.181.15:18081/sentences/theme/:sentence_theme/category/:sentence_category/page/:page/limit/:limit
  * @apiDescription 以类型查询名句
  * @apiName 以类型查询名句
  * @apiGroup Sentences
