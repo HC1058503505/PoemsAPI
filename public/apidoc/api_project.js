@@ -1,0 +1,1 @@
+define({  "title": "接口文档",  "url": "http://localhost:18080",  "name": "poemsapi",  "version": "1.0.0",  "description": "",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2018-10-12T01:49:19.527Z",    "url": "http://apidocjs.com",    "version": "0.17.6"  }});
