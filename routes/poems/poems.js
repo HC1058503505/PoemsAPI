@@ -1,20 +1,10 @@
-var express = require('express')
-var router = express.Router()
-var mongoClient = require('mongodb').MongoClient
-var dbURL = 'mongodb://localhost:27017'
+const express = require('express')
+const router = express.Router()
+const database = require('../../tools/database')
 
-function responseAction(collectionName,query,req, res, skipnum,limitnum) {	
-	mongoClient.connect(dbURL, {useNewUrlParser:true},function(error, db){
-		const hcpoems = db.db('hcpoems')
-		const table = hcpoems.collection(collectionName)
-
-		table.find(query).sort({'poem_note' : -1}).skip(skipnum * limitnum).limit(limitnum).toArray(function (error, docs){
-			res.send(docs)
-			res.end()
-			db.close()
-		})
-	})
-}
+var query = {}
+var project = {}
+var sort = {'poem_note' : -1}
 
 
 /**
@@ -63,8 +53,8 @@ function responseAction(collectionName,query,req, res, skipnum,limitnum) {
  */
 router.get('/page/:page/limit/:limit',function (req,res) {
 	// body...
-	var pageNum = parseInt(req.params.page)
-	var limitnum = parseInt(req.params.limit)
+	let pageNum = parseInt(req.params.page)
+	let limitnum = parseInt(req.params.limit)
 
 	if (isNaN(pageNum)) {
 		pageNum = 0
@@ -73,8 +63,8 @@ router.get('/page/:page/limit/:limit',function (req,res) {
 	if (isNaN(limitnum)) {
 		limitnum = 10
 	}
-	var query = {}
-	responseAction('poems',query, req, res, pageNum, limitnum)
+	
+	database.database('poems',query, project, sort ,req, res, pageNum, limitnum)
 })
 
 /**
@@ -111,11 +101,11 @@ router.get('/page/:page/limit/:limit',function (req,res) {
  */
 router.get('/id/:poem_id',function (req, res) {
 	// body...
-	var poem_id = req.params.poem_id
-	var query = {
+	let poem_id = req.params.poem_id
+	query = {
 		'poem_id' : poem_id
 	}
-	responseAction('poems', query, req, res, 0, 0)
+	database.database('poems', query, project, sort, req, res, 0, 0)
 })
 
 
@@ -203,9 +193,9 @@ router.get('/id/:poem_id',function (req, res) {
  */
 router.get('/author/:poem_author/page/:page/limit/:limit',function (req, res) {
 	// body...
-	var poem_author = '^' + req.params.poem_author
-	var pageNum = parseInt(req.params.page)
-	var limitnum = parseInt(req.params.limit)
+	let poem_author = '^' + req.params.poem_author
+	let pageNum = parseInt(req.params.page)
+	let limitnum = parseInt(req.params.limit)
 
 	if (isNaN(pageNum)) {
 		pageNum = 0
@@ -215,10 +205,10 @@ router.get('/author/:poem_author/page/:page/limit/:limit',function (req, res) {
 		limitnum = 10
 	}
 
-	var query = {
+    query = {
 		'poem_author' : {'$regex' : poem_author}
 	}
-	responseAction('poems', query, req, res, pageNum, limitnum)
+	database.database('poems', query, project, sort, req, res, pageNum, limitnum)
 })
 
 
@@ -283,9 +273,9 @@ router.get('/author/:poem_author/page/:page/limit/:limit',function (req, res) {
  */
 router.get('/dynasty/:dynasty/page/:page/limit/:limit',function (req, res) {
 	// body...
-	var poem_dynasty = '^.*' + req.params.dynasty.substring(0,1)
-	var pageNum = parseInt(req.params.page)
-	var limitnum = parseInt(req.params.limit)
+	let poem_dynasty = '^.*' + req.params.dynasty.substring(0,1)
+	let pageNum = parseInt(req.params.page)
+	let limitnum = parseInt(req.params.limit)
 
 	if (isNaN(pageNum)) {
 		pageNum = 0
@@ -295,10 +285,10 @@ router.get('/dynasty/:dynasty/page/:page/limit/:limit',function (req, res) {
 		limitnum = 10
 	}
 
-	var query = { 
+ 	query = { 
 		'poem_dynasty' : {'$regex' : poem_dynasty}
 	}
-	responseAction('poems', query, req, res, pageNum, limitnum)
+	database.database('poems', query, project, sort, req, res, pageNum, limitnum)
 })
 
 /**
@@ -395,9 +385,9 @@ router.get('/dynasty/:dynasty/page/:page/limit/:limit',function (req, res) {
  */
 router.get('/title/:poem_title/page/:page/limit/:limit',function (req, res) {
 	// body...
-	var poem_title = '^.*' + req.params.poem_title + '.*$'
-	var pageNum = parseInt(req.params.page)
-	var limitnum = parseInt(req.params.limit)
+	let poem_title = '^.*' + req.params.poem_title + '.*$'
+	let pageNum = parseInt(req.params.page)
+	let limitnum = parseInt(req.params.limit)
 
 	if (isNaN(pageNum)) {
 		pageNum = 0
@@ -407,12 +397,12 @@ router.get('/title/:poem_title/page/:page/limit/:limit',function (req, res) {
 		limitnum = 10
 	}
 
-	var query = {
+	query = {
 		'poem_title' : {
 			'$regex' : poem_title
 		}
 	}
-	responseAction('poems', query, req, res, pageNum, limitnum)
+	database.database('poems', query, project, sort, req, res, pageNum, limitnum)
 })
 
 
@@ -493,9 +483,9 @@ router.get('/title/:poem_title/page/:page/limit/:limit',function (req, res) {
  */
 router.get('/tag/:poem_tag/page/:page/limit/:limit',function (req, res) {
 	// body...
-	var poem_tag = '.*^' + req.params.poem_tag + '.*$'
-	var pageNum = parseInt(req.params.page)
-	var limitnum = parseInt(req.params.limit)
+	let poem_tag = '.*^' + req.params.poem_tag + '.*$'
+	let pageNum = parseInt(req.params.page)
+	let limitnum = parseInt(req.params.limit)
 
 	if (isNaN(pageNum)) {
 		pageNum = 0
@@ -505,11 +495,11 @@ router.get('/tag/:poem_tag/page/:page/limit/:limit',function (req, res) {
 		limitnum = 10
 	}
 
-	var query = {
+	query = {
 		'poem_tags' : {
 			'$regex' : poem_tag
 		}
 	}
-	responseAction('poems', query, req, res, pageNum, limitnum)
+	database.database('poems', query, project, sort,req, res, pageNum, limitnum)
 })
 module.exports = router;

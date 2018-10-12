@@ -1,21 +1,10 @@
-var express = require('express')
-var router = express.Router()
-var mongoClient = require('mongodb').MongoClient
-var dbURL = 'mongodb://localhost:27017'
+const express = require('express')
+const router = express.Router()
+const database = require('../../tools/database')
 
-function responseAction(collectionName,query,project,req, res, skipnum,limitnum) {	
-	mongoClient.connect(dbURL, {useNewUrlParser:true},function(error, db){
-		const hcpoems = db.db('hcpoems')
-		const table = hcpoems.collection(collectionName)
-
-		table.find(query).project(project).skip(skipnum * limitnum).limit(limitnum).toArray(function (error, docs){
-			res.send(docs)
-			res.end()
-			db.close()
-		})
-	})
-}
-
+var query = {}
+var sort = {}
+var project = {}
 
 /**
  * @api {get} /books/page/:page/limit/:limit 分页古书籍列表
@@ -49,8 +38,8 @@ function responseAction(collectionName,query,project,req, res, skipnum,limitnum)
  */
 router.get('/page/:page/limit/:limit',function (req,res) {
 	// body...
-	var pageNum = parseInt(req.params.page)
-	var limitnum = parseInt(req.params.limit)
+	let pageNum = parseInt(req.params.page)
+	let limitnum = parseInt(req.params.limit)
 
 	if (isNaN(pageNum)) {
 		pageNum = 0
@@ -59,9 +48,9 @@ router.get('/page/:page/limit/:limit',function (req,res) {
 	if (isNaN(limitnum)) {
 		limitnum = 10
 	}
-	var query = {}
-	var project = {'book_contents' : 0}
-	responseAction('books',query, project,req, res, pageNum, limitnum)
+	
+	project = {'book_contents' : 0}
+	database.database('books', query, project, sort, req, res, pageNum, limitnum)
 });
 
 
@@ -87,11 +76,11 @@ router.get('/page/:page/limit/:limit',function (req,res) {
 router.get('/id/:book_id',function(req, res){
 	// console.log(req.params.book_id)
 	// js 字符串转换数字:https://www.cnblogs.com/carekee/articles/1729574.html
-	var query = {
+	query = {
 		'book_id' : parseInt(req.params.book_id)
 	}
-	var project = {}
-	responseAction("books",query,project,req, res, 0, 0)
+
+	database.database("books", query, project, sort, req, res, 0, 0)
 })
 
 
@@ -118,10 +107,10 @@ router.get('/id/:book_id',function(req, res){
  * @apiVersion 1.0.0
  */
 router.get('/name/:book_name',function(req, res){
-	var query = {
+	query = {
 		'book_name' : req.params.book_name
 	}
-	var project = {}
-	responseAction("books",query,project,req, res, 0, 0)
+
+	database.database("books", query, project, sort, req, res, 0, 0)
 })
 module.exports = router;

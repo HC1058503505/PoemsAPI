@@ -1,21 +1,11 @@
-var express = require('express')
-var router = express.Router()
-const mongoClient = require('mongodb').MongoClient
-const dbURL = 'mongodb://localhost:27017'
+const express = require('express')
+const router = express.Router()
+const database = require('../../tools/database')
 
+var query = {}
+var sort = {}
+var project = {}
 
-function responseAction(collectionName,query,req, res, pagenum,limitnum) {
-	mongoClient.connect(dbURL, {useNewUrlParser:true},function(error, db){
-		const books = db.db('hcpoems')
-		const sentences = books.collection(collectionName)
-
-		sentences.find(query).skip(pagenum * limitnum).limit(limitnum).toArray(function (error, docs){
-			res.send(docs)
-			res.end()
-			db.close()
-		})
-	})
-}
 
 /**
  * @api {get} /sentences/page/:page/limit/:limit 名句列表
@@ -61,8 +51,8 @@ function responseAction(collectionName,query,req, res, pagenum,limitnum) {
  * @apiVersion 1.0.0
  */
 router.get('/page/:page/limit/:limit',function(req, res){
-	var pageNum = parseInt(req.params.page)
-	var limitnum = parseInt(req.params.limit)
+	let pageNum = parseInt(req.params.page)
+	let limitnum = parseInt(req.params.limit)
 
 	if (isNaN(pageNum)) {
 		pageNum = 0
@@ -71,8 +61,8 @@ router.get('/page/:page/limit/:limit',function(req, res){
 	if (isNaN(limitnum)) {
 		limitnum = 10
 	}
-	var query = {}
-	responseAction('sentences',query, req,res, pageNum,limitnum)
+	
+	database.database('sentences',query, project, sort, req, res, pageNum, limitnum)
 })
 
 
@@ -117,10 +107,10 @@ router.get('/page/:page/limit/:limit',function(req, res){
  */
 router.get('/id/:sentence_id',function(req, res){
 	
-		var query = {
-			'sentence_id' : req.params.sentence_id
-		}
-		responseAction('sentences',query,req, res,0,0)
+	query = {
+		'sentence_id' : req.params.sentence_id
+	}
+	database.database('sentences', query, project, sort, req, res, 0, 0)
 })
 
 
@@ -170,8 +160,8 @@ router.get('/id/:sentence_id',function(req, res){
  * @apiVersion 1.0.0
  */
 router.get('/theme/:sentence_theme/category/:sentence_category/page/:page/limit/:limit',function(req, res){
-	var pageNum = parseInt(req.params.page)
-	var limitnum = parseInt(req.params.limit)
+	let pageNum = parseInt(req.params.page)
+	let limitnum = parseInt(req.params.limit)
 
 	if (isNaN(pageNum)) {
 		pageNum = 0
@@ -181,11 +171,11 @@ router.get('/theme/:sentence_theme/category/:sentence_category/page/:page/limit/
 		limitnum = 10
 	}
 
-	var query = {
+	query = {
 		'sentence_theme' : req.params.sentence_theme,
 		'sentence_category' : req.params.sentence_category
 	}
-	responseAction('sentences',query,req, res, pageNum,limitnum)
+	database.database('sentences', query, project, sort, req, res, pageNum,limitnum)
 })
 
 module.exports = router;

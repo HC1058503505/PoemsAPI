@@ -1,8 +1,11 @@
-var express = require('express')
-var router = express.Router()
-var mongoClient = require('mongodb').MongoClient
-var dbURL = 'mongodb://localhost:27017'
+const express = require('express')
+const router = express.Router()
+const database = require('../../tools/database')
 
+
+var query = {}
+var project = {}
+var sort = {}
 /**
  * @api {get} /bookscatalogue 古书类别列表
  * @apiSampleRequest https://180.76.181.15:18081/bookscatalogue
@@ -80,16 +83,8 @@ var dbURL = 'mongodb://localhost:27017'
  * @apiVersion 1.0.0
  */
 router.get('/',function(req, res){
-	mongoClient.connect(dbURL,{useNewUrlParser:true}, function(error, db){
-		const meals = db.db('hcpoems')
-		const caipu_list = meals.collection('bookscatalogue')
-
-		caipu_list.find({}).toArray(function (error, docs){
-			res.send(docs)
-			res.end()
-			db.close()
-		})
-	})
+	
+	database.database('bookscatalogue', query, project, sort, req, res, 0, 0)
 })
 
 
