@@ -9,7 +9,7 @@ var sort = {'poem_note' : -1}
 
 /**
  * @api {get} /poems/page/:page/limit/:limit 古诗分页列表
- * @apiSampleRequest https://180.76.181.15:18081/poems/page/:page/limit/:limit
+ * @apiSampleRequest https://houcong.win:18081/poems/page/:page/limit/:limit
  * @apiDescription 古诗分页列表
  * @apiName 古诗分页列表
  * @apiGroup Poems
@@ -69,7 +69,7 @@ router.get('/page/:page/limit/:limit',function (req,res) {
 
 /**
  * @api {get} /poems/id/:poem_id 根据id查询诗词
- * @apiSampleRequest https://180.76.181.15:18081/poems/id/:poem_id
+ * @apiSampleRequest https://houcong.win:18081/poems/id/:poem_id
  * @apiDescription 根据id查询诗词
  * @apiName 根据id查询诗词
  * @apiGroup Poems
@@ -111,7 +111,7 @@ router.get('/id/:poem_id',function (req, res) {
 
 /**
  * @api {get} /poems/author/:poem_author/page/:page/limit/:limit 根据朝作者查询诗词
- * @apiSampleRequest https://180.76.181.15:18081/poems/author/:poem_author/page/:page/limit/:limit
+ * @apiSampleRequest https://houcong.win:18081/poems/author/:poem_author/page/:page/limit/:limit
  * @apiDescription 根据朝作者查询诗词
  * @apiName 根据朝作者查询诗词
  * @apiGroup Poems
@@ -214,7 +214,7 @@ router.get('/author/:poem_author/page/:page/limit/:limit',function (req, res) {
 
 /**
  * @api {get} /poems/dynasty/:dynasty/page/:page/limit/:limit 根据朝代查询诗词
- * @apiSampleRequest https://180.76.181.15:18081/poems/dynasty/:dynasty/page/:page/limit/:limit
+ * @apiSampleRequest https://houcong.win:18081/poems/dynasty/:dynasty/page/:page/limit/:limit
  * @apiDescription 根据朝代查询诗词
  * @apiName 根据朝代查询诗词
  * @apiGroup Poems
@@ -293,7 +293,7 @@ router.get('/dynasty/:dynasty/page/:page/limit/:limit',function (req, res) {
 
 /**
  * @api {get} /poems/title/:poem_title/page/:page/limit/:limit 根据题目名字查询诗词
- * @apiSampleRequest https://180.76.181.15:18081/poems/title/:poem_title/page/:page/limit/:limit
+ * @apiSampleRequest https://houcong.win:18081/poems/title/:poem_title/page/:page/limit/:limit
  * @apiDescription 根据题目名字查询诗词
  * @apiName 根据题目名字查询诗词
  * @apiGroup Poems
@@ -408,7 +408,7 @@ router.get('/title/:poem_title/page/:page/limit/:limit',function (req, res) {
 
 /**
  * @api {get} /poems/tag/:poem_tag/page/:page/limit/:limit 根据朝tag查询诗词
- * @apiSampleRequest https://180.76.181.15:18081/poems/tag/:poem_tag/page/:page/limit/:limit
+ * @apiSampleRequest https://houcong.win:18081/poems/tag/:poem_tag/page/:page/limit/:limit
  * @apiDescription 根据朝tag查询诗词
  * @apiName 根据朝tag查询诗词
  * @apiGroup Poems

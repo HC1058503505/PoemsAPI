@@ -9,7 +9,7 @@ var project = {}
 
 /**
  * @api {get} /poets/page/:page/limit/:limit 诗人列表
- * @apiSampleRequest https://180.76.181.15:18081/poets/page/:page/limit/:limit
+ * @apiSampleRequest https://houcong.win:18081/poets/page/:page/limit/:limit
  * @apiDescription 诗人列表
  * @apiName 诗人列表
  * @apiGroup Poets
@@ -259,7 +259,7 @@ router.get('/page/:page/limit/:limit',function(req, res){
 
 /**
  * @api {get} /poets/dynasty/:poet_dynasty/page/:page/limit/:limit 以朝代查询诗人
- * @apiSampleRequest https://180.76.181.15:18081/poets/dynasty/:poet_dynasty/page/:page/limit/:limit
+ * @apiSampleRequest https://houcong.win:18081/poets/dynasty/:poet_dynasty/page/:page/limit/:limit
  * @apiDescription 以朝代查询诗人
  * @apiName 以朝代查询诗人
  * @apiGroup Poets
@@ -514,7 +514,7 @@ router.get('/dynasty/:poet_dynasty/page/:page/limit/:limit',function(req, res){
 
 /**
  * @api {get} /poets/id/:poet_id 根据id查询诗人
- * @apiSampleRequest https://180.76.181.15:18081/poets/id/:poet_id
+ * @apiSampleRequest https://houcong.win:18081/poets/id/:poet_id
  * @apiDescription 根据id查询诗人
  * @apiName 根据id查询诗人
  * @apiGroup Poets
@@ -753,7 +753,7 @@ router.get('/id/:poet_id',function(req, res){
 
 /**
  * @api {get} /poets/name/:poet_name/page/:page/limit/:limit 根据名字查询诗人
- * @apiSampleRequest https://180.76.181.15:18081/poets/name/:poet_name/page/:page/limit/:limit
+ * @apiSampleRequest https://houcong.win:18081/poets/name/:poet_name/page/:page/limit/:limit
  * @apiDescription 根据名字查询诗人
  * @apiName 根据名字查询诗人
  * @apiGroup Poets
