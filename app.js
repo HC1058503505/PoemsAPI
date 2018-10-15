@@ -29,6 +29,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// poems
+const poemsRouter = require('./tools/register-poems-router')
+poemsRouter.register(app)
+
+// admin
+const adminRouters = require('./tools/poems-admin')
+adminRouters.register(app)
+
 // system route
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -48,14 +57,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// poems
-const poemsRouter = require('./tools/register-poems-router')
-poemsRouter.register(app)
-
-// admin
-const adminRouters = require('./tools/poems-admin')
-adminRouters.register(app)
 
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
