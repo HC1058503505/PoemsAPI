@@ -483,7 +483,7 @@ router.get('/title/:poem_title/page/:page/limit/:limit',function (req, res) {
  */
 router.get('/tag/:poem_tag/page/:page/limit/:limit',function (req, res) {
 	// body...
-	let poem_tag = '.*^' + req.params.poem_tag + '.*$'
+	let poem_tag = req.params.poem_tag
 	let pageNum = parseInt(req.params.page)
 	let limitnum = parseInt(req.params.limit)
 
@@ -497,7 +497,7 @@ router.get('/tag/:poem_tag/page/:page/limit/:limit',function (req, res) {
 
 	query = {
 		'poem_tags' : {
-			'$regex' : poem_tag
+			$regex : poem_tag
 		}
 	}
 	database.database('poems', query, project, sort,req, res, pageNum, limitnum)
