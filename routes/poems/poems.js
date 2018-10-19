@@ -193,7 +193,7 @@ router.get('/id/:poem_id',function (req, res) {
  */
 router.get('/author/:poem_author/page/:page/limit/:limit',function (req, res) {
 	// body...
-	let poem_author = '^' + req.params.poem_author
+	let poem_author = req.params.poem_author
 	let pageNum = parseInt(req.params.page)
 	let limitnum = parseInt(req.params.limit)
 
@@ -206,7 +206,9 @@ router.get('/author/:poem_author/page/:page/limit/:limit',function (req, res) {
 	}
 
     query = {
-		'poem_author' : {'$regex' : poem_author}
+		'poem_author' : {
+			$regex : poem_author
+		}
 	}
 	database.database('poems', query, project, sort, req, res, pageNum, limitnum)
 })
@@ -273,7 +275,7 @@ router.get('/author/:poem_author/page/:page/limit/:limit',function (req, res) {
  */
 router.get('/dynasty/:dynasty/page/:page/limit/:limit',function (req, res) {
 	// body...
-	let poem_dynasty = '^.*' + req.params.dynasty.substring(0,1)
+	let poem_dynasty = req.params.dynasty.substring(0,1)
 	let pageNum = parseInt(req.params.page)
 	let limitnum = parseInt(req.params.limit)
 
@@ -286,7 +288,9 @@ router.get('/dynasty/:dynasty/page/:page/limit/:limit',function (req, res) {
 	}
 
  	query = { 
-		'poem_dynasty' : {'$regex' : poem_dynasty}
+		'poem_dynasty' : {
+			$regex : poem_dynasty
+		}
 	}
 	database.database('poems', query, project, sort, req, res, pageNum, limitnum)
 })
@@ -385,7 +389,7 @@ router.get('/dynasty/:dynasty/page/:page/limit/:limit',function (req, res) {
  */
 router.get('/title/:poem_title/page/:page/limit/:limit',function (req, res) {
 	// body...
-	let poem_title = '^.*' + req.params.poem_title + '.*$'
+	let poem_title = req.params.poem_title
 	let pageNum = parseInt(req.params.page)
 	let limitnum = parseInt(req.params.limit)
 
@@ -399,7 +403,7 @@ router.get('/title/:poem_title/page/:page/limit/:limit',function (req, res) {
 
 	query = {
 		'poem_title' : {
-			'$regex' : poem_title
+			$regex : poem_title
 		}
 	}
 	database.database('poems', query, project, sort, req, res, pageNum, limitnum)
