@@ -506,4 +506,21 @@ router.get('/tag/:poem_tag/page/:page/limit/:limit',function (req, res) {
 	}
 	database.database('poems', query, project, sort,req, res, pageNum, limitnum)
 })
+
+router.get('/key/:key/keyid/:keyid/type/:type/isCollection/:isCollection',function(req, res) {
+	let type = req.params.type
+	let isCollection = Boolean(req.params.isCollection)
+	let keyid = req.params.keyid
+	let key = req.params.key
+
+	let whereStr = {}
+	whereStr[key] = keyid
+
+	let updateStr = {
+		$set : {
+			'isCollection' : isCollection
+		}
+	}
+	database.collection(type,whereStr,updateStr,req, res)
+})
 module.exports = router;
