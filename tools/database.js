@@ -1,6 +1,6 @@
 
 const mongoClient = require('mongodb').MongoClient
-const dbURL = 'mongodb://180.76.181.15:27017'
+const dbURL = 'mongodb://localhost:27017'
 
 exports.database = function (collectionName,query,project,sort,req, res, skipnum,limitnum) {	
 	mongoClient.connect(dbURL, {useNewUrlParser:true},function(error, db){
