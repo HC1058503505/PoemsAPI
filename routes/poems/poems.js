@@ -521,6 +521,17 @@ router.get('/key/:key/keyid/:keyid/type/:type/isCollection/:isCollection',functi
 			'isCollection' : isCollection
 		}
 	}
-	database.collection(type,whereStr,updateStr,req, res)
+	database.collection(type,whereStr,updateStr,req, res, true)
+})
+
+router.get('/isCollection/key/:key/keyid/:keyid/type/:type/',function(req, res) {
+	let type = req.params.type
+	let isCollection = Boolean(req.params.isCollection)
+	let keyid = req.params.keyid
+	let key = req.params.key
+
+	let whereStr = {}
+	whereStr[key] = keyid
+	database.collection(type,whereStr,'',req, res, false)
 })
 module.exports = router;

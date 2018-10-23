@@ -36,19 +36,32 @@ exports.database = function (collectionName,query,project,sort,req, res, skipnum
 	})
 };
 
-exports.collection = function(collectionName,whereStr,updateStr,req,res){
+exports.collection = function(collectionName,whereStr,updateStr,req,res, isUpdate){
 	mongoClient.connect(dbURL, {useNewUrlParser:true},function(error, db){
 		const hcpoems = db.db('hcpoems')
 		const table = hcpoems.collection(collectionName)
-
-		table.updateOne(whereStr, updateStr, function(err, response) {
-			if (err) {
-				throw err
-			} else {
-				res.send({'message' : 'Success'})
-			}
-			res.end()
-			db.close();
-		});
+		if (isUpdate) {
+			table.updateOne(whereStr, updateStr, function(err, response) {
+				if (err) {
+					throw err
+				} else {
+					res.send({'message' : 'Success'})
+				}
+				res.end()
+				db.close();
+			});
+		} else {
+			table.findOne(whereStr, function(err, response) {
+				console.log(response)
+				if (err) {
+					throw err
+				} else {
+					res.send({'isCollection' : response.isCollection})
+				}
+				res.end()
+				db.close()
+			})
+		}
+		
 	})
 };
