@@ -509,7 +509,7 @@ router.get('/tag/:poem_tag/page/:page/limit/:limit',function (req, res) {
 
 router.get('/key/:key/keyid/:keyid/type/:type/isCollection/:isCollection',function(req, res) {
 	let type = req.params.type
-	let isCollection = Boolean(req.params.isCollection)
+	let isCollection = req.params.isCollection == 'true'
 	let keyid = req.params.keyid
 	let key = req.params.key
 
@@ -521,12 +521,12 @@ router.get('/key/:key/keyid/:keyid/type/:type/isCollection/:isCollection',functi
 			'isCollection' : isCollection
 		}
 	}
+
 	database.collection(type,whereStr,updateStr,req, res, true)
 })
 
 router.get('/isCollection/key/:key/keyid/:keyid/type/:type/',function(req, res) {
 	let type = req.params.type
-	let isCollection = Boolean(req.params.isCollection)
 	let keyid = req.params.keyid
 	let key = req.params.key
 
